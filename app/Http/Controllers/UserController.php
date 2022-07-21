@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,10 +33,23 @@ class UserController extends Controller
                 'password.required' => 'Şifre alanı boş bırakılamaz',
             ]
         );
-        $imageFile = $request->file('image');
-        $image = uniqid() . "." . $imageFile->getClientOriginalExtension();
-        $imageFile->move(public_path("testing/"), $image);
 
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $imageFile = $request->file('image');
+        if ($imageFile) {
+            $image = uniqid() . "." . $imageFile->getClientOriginalExtension();
+            $imageFile->move(public_path("img/avatarupload"), $image);
+        } else {
+            $image = "default.png";
+        }
+        $user->avatar = $image;
+
+
+        $user->save();
     }
 
     public function session_put(Request $request)
@@ -43,6 +57,6 @@ class UserController extends Controller
     }
     public function session_get(Request $request)
     {
-        echo  $request->session()->get('deneme');
+        $request->session()->get('deneme');
     }
 }

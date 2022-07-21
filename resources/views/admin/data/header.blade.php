@@ -154,7 +154,7 @@
                     data-bs-toggle="dropdown">
                     <img src="{{ asset('admin') }}/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1"
                         alt="Charles Hall" />
-                    <span class="text-dark">Charles Hall</span>
+                    <span class="text-dark">Testing</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"

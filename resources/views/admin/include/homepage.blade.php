@@ -39,23 +39,21 @@
                                                 <th>İsim</th>
                                                 <th>Email</th>
                                                 <th>Oluşturulma Tarihi</th>
-                                                <th>Son Güncellenem Tarihi</th>
+                                                <th>Son Güncellenme Tarihi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach ($users as $user)
                                                 <tr>
-                                                    @if ($user->avatar == null)
+                                                    @if ($user->avatar == 'default.png')
                                                         <td>
-                                                            <img src="{{ asset('admin/img/avatars/default.png') }}"
+                                                            <img src="{{ asset('img/avatarupload/default.png') }}"
                                                                 width="48" height="48" class="rounded-circle me-2"
                                                                 alt="Avatar">
                                                         </td>
-                                                    @endif
-
-                                                    @if (!$user->avatar == null)
+                                                    @else
                                                         <td>
-                                                            <img src="{{ asset('admin/img/avatars/' . $user->avatar) }}"
+                                                            <img src="{{ asset('img/avatarupload/' . $user->avatar) }}"
                                                                 width="48" height="48" class="rounded-circle me-2"
                                                                 alt="Avatar">
                                                         </td>

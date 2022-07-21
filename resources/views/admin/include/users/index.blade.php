@@ -25,7 +25,7 @@
                                     <th>İsim</th>
                                     <th>Email</th>
                                     <th>Oluşturulma Tarihi</th>
-                                    <th>Son Güncellenem Tarihi</th>
+                                    <th>Son Güncellenme Tarihi</th>
                                     <th>İşlem</th>
                                 </tr>
                             </thead>
@@ -33,19 +33,19 @@
                                 @foreach ($users as $user)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        @if ($user->avatar == null)
+                                        @if ($user->avatar == 'default.png')
                                             <td>
-                                                <img src="{{ asset('admin/img/avatars/default.png') }}" width="48"
+                                                <img src="{{ asset('img/avatarupload/default.png') }}" width="48"
+                                                    height="48" class="rounded-circle me-2" alt="Avatar">
+                                            </td>
+                                        @else
+                                            <td>
+                                                <img src="{{ asset('img/avatarupload/' . $user->avatar) }}" width="48"
                                                     height="48" class="rounded-circle me-2" alt="Avatar">
                                             </td>
                                         @endif
 
-                                        @if (!$user->avatar == null)
-                                            <td>
-                                                <img src="{{ asset('admin/img/avatars/' . $user->avatar) }}" width="48"
-                                                    height="48" class="rounded-circle me-2" alt="Avatar">
-                                            </td>
-                                        @endif
+
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ iconv('ISO-8859-2', 'UTF-8', strftime('%d %B %Y ', strtotime($user->created_at))) }}
@@ -130,18 +130,7 @@
     @section('js')
         <script>
             /**TOAST SETUP*/
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 2000,
-                width: '500px',
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+
 
 
             // this is the id of the form
@@ -154,14 +143,38 @@
                     type: 'POST',
                     data: formData,
                     success: function(data) {
-                        console.log('success çalıştı');
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1000,
+                            width: '500px',
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
                         Toast.fire({
                             icon: 'success',
                             title: 'Kayıt başarıyla eklendi'
-                        })
+                        }).then(function() {
+                            window.location.href = '/users';
+                        });
                     },
                     error: function(data) {
-                        console.log('error çalıştı');
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            width: '500px',
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
                         let errormessages = '';
                         Object.values(data?.responseJSON?.errors).forEach(element => {
                             errormessages += '<li>' + element + '</li>';
