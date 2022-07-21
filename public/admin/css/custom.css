@@ -1,0 +1,17 @@
+.dataTables_length label {
+    padding: 10px;
+}
+
+#userstable_filter label {
+    padding: 10px;
+
+}
+
+.dataTables_info {
+    margin-left: 5px;
+}
+
+#userstable_paginate {
+    margin-right: 5px;
+}
+
