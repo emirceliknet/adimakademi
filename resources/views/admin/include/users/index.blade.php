@@ -116,9 +116,9 @@
                         </div>
                         <div class="mb-3">
                             <label for="avatar" class="form-label">Profil Fotoğrafı</label>
-                            <input type="file" class="form-control" id="avatar" name="avatar">
+                            <input type="file" name="image" id="avatar" class="form-control" />
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Kaydet</button>
+                        <button type="submit" id="upload" class="btn btn-primary w-100">Kaydet</button>
                     </form>
 
                 </div>
@@ -129,37 +129,41 @@
 
     @section('js')
         <script>
-            $("#addUserForm").submit(function(e) {
-                /**TOAST SETUP*/
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    width: '500px',
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
+            /**TOAST SETUP*/
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                width: '500px',
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
+
+            // this is the id of the form
+            $("form#addUserForm").submit(function(e) {
                 e.preventDefault();
-                var form = $(this);
+                var formData = new FormData(this);
+
                 $.ajax({
-                    type: "POST",
                     url: '/users-store',
-                    data: form.serialize(),
+                    type: 'POST',
+                    data: formData,
                     success: function(data) {
+                        console.log('success çalıştı');
                         Toast.fire({
                             icon: 'success',
                             title: 'Kayıt başarıyla eklendi'
                         })
-
                     },
                     error: function(data) {
+                        console.log('error çalıştı');
                         let errormessages = '';
-                        Object.values(data.responseJSON.errors).forEach(element => {
+                        Object.values(data?.responseJSON?.errors).forEach(element => {
                             errormessages += '<li>' + element + '</li>';
                         });;
                         Toast.fire({
@@ -168,8 +172,10 @@
                             html: '<ul>' + errormessages + '</ul>',
                         })
                     },
+                    cache: false,
+                    contentType: false,
+                    processData: false
                 });
-
             });
 
             $(document).ready(function() {

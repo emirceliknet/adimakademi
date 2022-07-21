@@ -20,9 +20,13 @@ Route::get('/home', [IndexController::class, 'index'])->name('home');
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
 
+Route::get('/session/put', [UserController::class, 'session_put'])->name('session_put');
+Route::get('/session/get', [UserController::class, 'session_get'])->name('session_get');
+
 
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::post('/users-store', [UserController::class, 'store'])->name('users-store');
+Route::post('crop', [UserController::class, 'crop'])->name('crop');
 
 
 Route::get('/dashboard', function () {
