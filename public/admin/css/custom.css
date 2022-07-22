@@ -15,3 +15,7 @@
     margin-right: 5px;
 }
 
+.profileimage{
+    border-radius: 50% !important;
+    width: 50%;
+}

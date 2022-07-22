@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,7 +18,7 @@ class UserController extends Controller
 
 
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
         $validated = $request->validate(
             [
@@ -52,11 +53,55 @@ class UserController extends Controller
         $user->save();
     }
 
-    public function session_put(Request $request)
+    public function edit(Request $request)
     {
+
+        $validated = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email',
+                'id' => 'required',
+            ],
+            [
+                'name.required' => 'İsim alanı boş bırakılamaz',
+                'email.required' => 'Email alanı boş bırakılamaz',
+                'email.email' => 'Email formatı hatalı',
+                'id.required' => 'Kritik sorun, veribulunamadı!',
+
+            ]
+        );
+        $id = $request->id;
+        $user = User::find($id);
+        $imageFile = $request->file('image');
+        if ($imageFile) {
+            $image_delete_path = public_path("img/avatarupload/" . $user->avatar);
+            File::delete($image_delete_path);
+            $image = uniqid() . "." . $imageFile->getClientOriginalExtension();
+            $imageFile->move(public_path("img/avatarupload"), $image);
+        } else {
+            $image = $user->avatar;
+        }
+
+        if ($request->password == null) {
+            User::where('id', $id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'avatar' => $image
+            ]);
+        } else {
+            $pass = Hash::make($request->password);
+            User::where('id', $id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $pass,
+                'avatar' => $image
+            ]);
+        }
     }
-    public function session_get(Request $request)
+
+    public function data($id)
     {
-        $request->session()->get('deneme');
+        $data = User::find($id);
+        return response()->json(['status' => true, 'message' => '', 'data' => $data]);
     }
 }
