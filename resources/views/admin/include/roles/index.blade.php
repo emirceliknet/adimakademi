@@ -14,4 +14,5 @@
     <!-- Add Modal -->
     @include('admin.include.roles.create')
     @include('admin.include.roles.edit')
+    @include('admin.include.roles.delete')
 @endsection

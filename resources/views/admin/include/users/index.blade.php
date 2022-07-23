@@ -14,4 +14,5 @@
     <!-- Add Modal -->
     @include('admin.include.users.create')
     @include('admin.include.users.edit')
+    @include('admin.include.users.delete')
 @endsection

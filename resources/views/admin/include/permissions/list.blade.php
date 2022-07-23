@@ -54,4 +54,3 @@
         $('#table').DataTable();
     });
 </script>
-@include('admin.include.permissions.delete')

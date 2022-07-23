@@ -14,4 +14,5 @@
     <!-- Add Modal -->
     @include('admin.include.permissions.create')
     @include('admin.include.permissions.edit')
+    @include('admin.include.permissions.delete')
 @endsection
