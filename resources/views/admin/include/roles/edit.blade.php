@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editLabel">Kullanıcı Düzenle</h5>
+                <h5 class="modal-title" id="editLabel">Rol Düzenle</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -10,21 +10,14 @@
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">İsim</label>
-                        <input type="text" class="form-control" placeholder="Emir" id="name" name="name" old>
+                        <input type="text" class="form-control" placeholder="Muhasebe" id="name" name="name"
+                            old>
                     </div>
+
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="mail" class="form-control" placeholder="emirceliknet@gmail.com" id="email"
-                            name="email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Şifre</label>
-                        <input type="password" class="form-control" placeholder="********" id="password"
-                            name="password">
-                    </div>
-                    <div class="mb-3">
-                        <label for="avatar" class="form-label">Profil Fotoğrafı</label>
-                        <input type="file" name="image" id="avatar" class="form-control" />
+                        <label for="info" class="form-label">Kısa Açıklama</label>
+                        <input type="text" class="form-control" placeholder="Muhasebe departmanı için" id="info"
+                            name="info" old>
                     </div>
                     <input type="hidden" name="id" id="id">
                     <div class="mb-3 d-flex justify-content-center">
@@ -41,16 +34,12 @@
         $("#preview").attr("src", "");
         var id = $(this).data('id');
         $.ajax({
-            url: "/users/data/" + id,
+            url: "/roles/data/" + id,
             type: "GET",
             success: function(response) {
                 $('#editForm').find('#name').val(response.data.name);
-                $('#editForm').find('#email').val(response.data.email);
-                $('#editForm').find('#name').val(response.data.name);
+                $('#editForm').find('#info').val(response.data.info);
                 $('#editForm').find('#id').val(response.data.id);
-
-                var img = response.data.avatar;
-                $("#preview").attr("src", "/img/avatarupload/" + img + "");
             },
         })
     });
@@ -59,7 +48,7 @@
         var formData = new FormData(this);
 
         $.ajax({
-            url: '/users/edit',
+            url: '/roles/edit',
             type: 'POST',
             data: formData,
             success: function(data) {
@@ -79,7 +68,7 @@
                     icon: 'success',
                     title: 'Kayıt başarıyla güncellendi'
                 }).then(function() {
-                    window.location.href = '/users';
+                    window.location.href = '/roles';
                 });
             },
             error: function(data) {

@@ -12,8 +12,8 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::orderby('id', 'desc')->get();
-        return view('admin.include.users.index', ['users' => $users]);
+        $items = User::orderby('id', 'desc')->get();
+        return view('admin.include.users.index', ['items' => $items]);
     }
 
 
@@ -103,5 +103,14 @@ class UserController extends Controller
     {
         $data = User::find($id);
         return response()->json(['status' => true, 'message' => '', 'data' => $data]);
+    }
+
+    public function delete($id)
+    {
+        $data = User::find($id);
+        $image_delete_path = public_path("img/avatarupload/" . $data->avatar);
+        File::delete($image_delete_path);
+        User::find($id)->delete();
+        return response()->json(['status' => true, 'message' => '']);
     }
 }

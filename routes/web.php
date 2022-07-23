@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +25,20 @@ Route::get('/', [IndexController::class, 'index'])->name('home');
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::post('/users/create', [UserController::class, 'create'])->name('users-create');
 Route::post('/users/edit', [UserController::class, 'edit'])->name('users-edit');
+Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
 Route::get('/users/data/{id}', [UserController::class, 'data'])->name('users-data');
+
+Route::get('/roles', [RoleController::class, 'index'])->name('roles');
+Route::post('/roles/create', [RoleController::class, 'create'])->name('roles-create');
+Route::post('/roles/edit', [RoleController::class, 'edit'])->name('roles-edit');
+Route::get('/roles/delete/{id}', [RoleController::class, 'delete'])->name('roles-delete');
+Route::get('/roles/data/{id}', [RoleController::class, 'data'])->name('roles-data');
+
+Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions');
+Route::post('/permissions/create', [PermissionController::class, 'create'])->name('permissions-create');
+Route::post('/permissions/edit', [PermissionController::class, 'edit'])->name('permissions-edit');
+Route::get('/permissions/delete/{id}', [PermissionController::class, 'delete'])->name('permissions-delete');
+Route::get('/permissions/data/{id}', [PermissionController::class, 'data'])->name('permissions-data');
 
 
 

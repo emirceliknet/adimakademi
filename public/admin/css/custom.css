@@ -2,7 +2,7 @@
     padding: 10px;
 }
 
-#userstable_filter label {
+#table_filter label {
     padding: 10px;
 
 }
@@ -11,7 +11,7 @@
     margin-left: 5px;
 }
 
-#userstable_paginate {
+#table_paginate {
     margin-right: 5px;
 }
 

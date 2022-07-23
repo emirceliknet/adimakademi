@@ -19,7 +19,7 @@
     <title>Adım Akademi</title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 
     <link href="{{ asset('admin/css/custom.css') }}" rel="stylesheet">
@@ -52,11 +52,7 @@
             @include('admin.data.footer')
         </div>
     </div>
-
     <script src="{{ asset('admin/js/app.js') }}"></script>
-
-
-
     @yield('js')
 </body>
 
