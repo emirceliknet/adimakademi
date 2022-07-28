@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 
@@ -52,5 +53,28 @@ class RoleController extends Controller
     {
         $data = Role::find($id);
         return response()->json(['status' => true, 'message' => '', 'data' => $data]);
+    }
+
+    public function data_show($id)
+    {
+        $role = Role::with('permissions')->findOrFail($id);
+        $permissions = Permission::all();
+
+
+        foreach ($role->permissions as $out) {
+            foreach ($permissions as $in) {
+                if ($in->id === $out->id) {
+                    $in->checked = "checked";
+                }
+            }
+        }
+        return response()->json(['status' => true, 'message' => '', 'data' => $permissions]);
+    }
+
+    public function update_permission(Request $request)
+    {
+        $role = Role::find($request->id);
+        $role->syncPermissions($request->val);
+        return response()->json(['status' => true, 'message' => '']);
     }
 }

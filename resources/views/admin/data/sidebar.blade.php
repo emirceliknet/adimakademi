@@ -16,22 +16,22 @@
             </li>
             <li class="sidebar-item @if (Route::currentRouteName() == 'users') active @endif">
                 <a class="sidebar-link" href="{{ route('users') }}">
-                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Kullanıcıları
-                        listele</span>
+                    <i class="align-middle" data-feather="users"></i> <span class="align-middle">Kullanıcılar
+                    </span>
                 </a>
             </li>
 
             <li class="sidebar-item @if (Route::currentRouteName() == 'roles') active @endif">
                 <a class="sidebar-link" href="{{ route('roles') }}">
-                    <i class="align-middle" data-feather="trending-up"></i> <span class="align-middle">Rolleri
-                        listele</span>
+                    <i class="align-middle" data-feather="trending-up"></i> <span class="align-middle">Roller
+                    </span>
                 </a>
             </li>
 
             <li class="sidebar-item @if (Route::currentRouteName() == 'permissions') active @endif">
                 <a class="sidebar-link" href="{{ route('permissions') }}">
-                    <i class="align-middle" data-feather="shield"></i> <span class="align-middle">Yetkileri
-                        Listele</span>
+                    <i class="align-middle" data-feather="shield"></i> <span class="align-middle">Yetkiler
+                    </span>
                 </a>
             </li>
         </ul>

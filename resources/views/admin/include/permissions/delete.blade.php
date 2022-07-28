@@ -1,4 +1,4 @@
-<script src="">
+<script>
     $(".deleteBtn").click(function() {
         Swal.fire({
             title: 'Onaylıyor musunuz?',

@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+
 
 class UserController extends Controller
 {
@@ -111,6 +113,30 @@ class UserController extends Controller
         $image_delete_path = public_path("img/avatarupload/" . $data->avatar);
         File::delete($image_delete_path);
         User::find($id)->delete();
+        return response()->json(['status' => true, 'message' => '']);
+    }
+
+    public function data_show($id)
+    {
+
+        $user = User::with('roles')->findOrFail($id);
+        $roles = Role::all();
+
+        foreach ($user->roles as $out) {
+            foreach ($roles as $in) {
+                if ($in->id === $out->id) {
+                    $in->checked = "checked";
+                }
+            }
+        }
+
+        return response()->json(['status' => true, 'message' => '', 'data' => $roles]);
+    }
+
+    public function update_role(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->syncRoles($request->val);
         return response()->json(['status' => true, 'message' => '']);
     }
 }

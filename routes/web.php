@@ -22,17 +22,28 @@ Route::get('/home', [IndexController::class, 'index'])->name('home');
 Route::get('/', [IndexController::class, 'index'])->name('home');
 
 
+
+
+
 Route::get('/users', [UserController::class, 'index'])->name('users');
 Route::post('/users/create', [UserController::class, 'create'])->name('users-create');
 Route::post('/users/edit', [UserController::class, 'edit'])->name('users-edit');
 Route::get('/users/delete/{id}', [UserController::class, 'delete'])->name('user-delete');
 Route::get('/users/data/{id}', [UserController::class, 'data'])->name('users-data');
+Route::get('/users/show/data/{id}', [UserController::class, 'data_show'])->name('users-data-show');
+Route::post('/users/update_role', [UserController::class, 'update_role'])->name('user-update-role');
+
+
+
 
 Route::get('/roles', [RoleController::class, 'index'])->name('roles');
 Route::post('/roles/create', [RoleController::class, 'create'])->name('roles-create');
 Route::post('/roles/edit', [RoleController::class, 'edit'])->name('roles-edit');
 Route::get('/roles/delete/{id}', [RoleController::class, 'delete'])->name('roles-delete');
 Route::get('/roles/data/{id}', [RoleController::class, 'data'])->name('roles-data');
+Route::get('/roles/show/data/{id}', [RoleController::class, 'data_show'])->name('roles-data-show');
+Route::post('/roles/update_permission', [RoleController::class, 'update_permission'])->name('role-update-permission');
+
 
 Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions');
 Route::post('/permissions/create', [PermissionController::class, 'create'])->name('permissions-create');
